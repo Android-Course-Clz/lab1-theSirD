@@ -8,20 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var adapter: PostsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
         val postsList = findViewById<RecyclerView>(R.id.posts_list)
-        postsList.setLayoutManager(LinearLayoutManager(this));
-
+        postsList.setLayoutManager(LinearLayoutManager(this))
         val posts = listOf(
-            Post("Первый постldsfjdskfjldsjfldks;fjdsjfkldsajfjdjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafs;lkfjldsajfdsjlkfjalsdfjdsal;fjsdaf", "https://images.unsplash.com/photo-1741557571786-e922da981949?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 120, 35),
-            Post("Второй пост", "https://plus.unsplash.com/premium_photo-1667428818562-fc8379f23bfe?q=80&w=2454&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 95, 18),
-            Post("Третий пост", "https://images.unsplash.com/photo-1734903899558-463366085cb7?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 200, 50)
+            Post(1L, "Первый постldsfjdskfjldsjfldks;fjdsjfkldsajfjdjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafjfkldsajfjds;lkfjldsajfdsjlkfjalsdfjdsal;fjsdafs;lkfjldsajfdsjlkfjalsdfjdsal;fjsdaf", "https://images.unsplash.com/photo-1741557571786-e922da981949?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 120, 35),
+            Post(2L, "Второй пост", "https://plus.unsplash.com/premium_photo-1667428818562-fc8379f23bfe?q=80&w=2454&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 95, 18),
+            Post(3L, "Третий пост", "https://images.unsplash.com/photo-1734903899558-463366085cb7?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 200, 50)
         )
 
-        val adapter = PostsAdapter(posts)
+        adapter = PostsAdapter(posts) { post ->
+            val updatedPosts = posts.map {
+                if (it.id == post.id) {
+                    it.copy(likes = it.likes + 1)
+                } else {
+                    it
+                }
+            }
+            adapter.updateList(updatedPosts)
+        }
+
         postsList.layoutManager = LinearLayoutManager(this)
         postsList.adapter = adapter
 
