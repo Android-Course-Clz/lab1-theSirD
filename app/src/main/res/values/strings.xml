@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">mob-dev-lab1</string>
+    <string name="message_button_text">Написать сообщение</string>
+    <string name="username">Даниил Исаев</string>
+    <string name="nickname">theSirD</string>
+    <string name="subscribe_button_text">Подписаться</string>
+    <string name="post_text_placeholder">Текст поста</string>
+    <string name="like_count_placeholder">100</string>
+    <string name="comment_count_placeholder">20</string>
+    <string name="subscribers_count_placeholder">5000 подписчиков</string>
+    <string name="subscriptions_count_placeholder">300 подписок</string>
+    <string name="posts_count_placeholder">120 постов</string>
 </resources>
