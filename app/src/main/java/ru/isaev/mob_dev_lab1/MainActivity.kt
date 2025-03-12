@@ -1,15 +1,19 @@
 package ru.isaev.mob_dev_lab1
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: PostsAdapter
     private lateinit var postsList: RecyclerView
+    private lateinit var subscribeButton: Button
+    private var isSubscribed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         postsList = findViewById(R.id.posts_list)
         postsList.layoutManager = LinearLayoutManager(this)
+
+        subscribeButton = findViewById(R.id.button_subscribe)
+
+        updateSubscribeButton()
+
+        subscribeButton.setOnClickListener {
+            isSubscribed = !isSubscribed
+            updateSubscribeButton()
+        }
 
         val posts = mutableListOf(
             Post(1L, "Первый пост", "https://images.unsplash.com/photo-1741557571786-e922da981949?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 120, 35),
@@ -58,5 +71,13 @@ class MainActivity : AppCompatActivity() {
             .placeholder(R.drawable.pc_avatar)
             .error(R.drawable.error)
             .into(avatarView)
+    }
+
+    private fun updateSubscribeButton() {
+        if (isSubscribed) {
+            subscribeButton.text = getString(R.string.unsubscribe_button_text)
+        } else {
+            subscribeButton.text = getString(R.string.subscribe_button_text)
+        }
     }
 }

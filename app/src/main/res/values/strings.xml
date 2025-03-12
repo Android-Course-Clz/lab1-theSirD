@@ -4,6 +4,7 @@
     <string name="username">Даниил Исаев</string>
     <string name="nickname">theSirD</string>
     <string name="subscribe_button_text">Подписаться</string>
+    <string name="unsubscribe_button_text">Отписаться</string>
     <string name="post_text_placeholder">Текст поста</string>
     <string name="like_count_placeholder">100</string>
     <string name="comment_count_placeholder">20</string>
