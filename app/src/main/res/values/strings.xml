@@ -10,4 +10,8 @@
     <string name="subscribers_count_placeholder">5000 подписчиков</string>
     <string name="subscriptions_count_placeholder">300 подписок</string>
     <string name="posts_count_placeholder">120 постов</string>
+    <string name="avatar_image_desc">Avatar</string>
+    <string name="post_image_desc">Post image</string>
+    <string name="like_button_desc">Like button</string>
+    <string name="comment_button_desc">Comment button</string>
 </resources>
