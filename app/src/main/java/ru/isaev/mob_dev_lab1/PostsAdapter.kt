@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class PostsAdapter(
-    private var posts: List<Post>,
-    private val onLikeClick: (Post) -> Unit
-) : RecyclerView.Adapter<PostViewHolder>() {
+    private val posts: MutableList<Post>,
+    val likeClickListener: (Post) -> Unit,
+    val commentClickListener: (Post) -> Unit
+    ) : RecyclerView.Adapter<PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.post, parent, false)
@@ -28,12 +29,18 @@ class PostsAdapter(
             .error(R.drawable.error)
             .into(holder.postImage)
 
+        if (post.isLiked) {
+            holder.likeButton.setImageResource(R.drawable.ic_liked)
+        } else {
+            holder.likeButton.setImageResource(R.drawable.ic_like)
+        }
+
         holder.likeButton.setOnClickListener {
-            onLikeClick(post)
+            likeClickListener(post)
         }
 
         holder.commentButton.setOnClickListener {
-            // Логика для обработки комментариев
+            commentClickListener(post)
         }
     }
 
@@ -42,7 +49,8 @@ class PostsAdapter(
     fun updateList(newList: List<Post>) {
         val diffCallback = PostDiffCallback(posts, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-        posts = newList
+        posts.clear()
+        posts.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
     }
 }
